@@ -26,11 +26,19 @@
             <!-- <li class="nav-item">
             <a href="about.html" class="nav-link">Login</a>
           </li> -->
-            <li class="nav-item">
-              <a href="foods.html" class="nav-link">Sign Out</a>
+            <li
+              class="nav-item"
+              v-if="userDetail.role && userDetail.role.name == 'Authenticated'"
+            >
+              <a href="#" @click="signOut" class="nav-link">Sign Out</a>
             </li>
-            <li class="nav-item">
-              <a href="foods.html" class="nav-link">Create Blog</a>
+            <li
+              class="nav-item"
+              v-if="userDetail.role && userDetail.role.name == 'Authenticated'"
+            >
+              <router-link to="/create-blog" class="nav-link"
+                >Create Blog</router-link
+              >
             </li>
           </ul>
         </div>
@@ -41,5 +49,22 @@
 </template>
 
 <script>
-export default {};
+export default {
+  computed: {
+    userDetail() {
+      return this.$store.state.userDetail;
+    },
+  },
+  methods: {
+    signOut() {
+      localStorage.clear();
+      location.reload();
+    },
+  },
+  async beforeMount() {
+    try {
+      await this.$store.dispatch("userProfile");
+    } catch (error) {}
+  },
+};
 </script>
