@@ -77,6 +77,7 @@ export default new Vuex.Store({
             post_detail: payload.post_detail,
             post_date: payload.post_date,
             post_image: data.upload.id,
+            name: "Photo",
           },
           error(error) {
             throw error;

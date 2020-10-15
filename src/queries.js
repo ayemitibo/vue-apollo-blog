@@ -42,6 +42,7 @@ export const CREATE_POST = gql`
     $post_date: Date
     $post_detail: String
     $post_image: ID
+    $name: String
   ) {
     createPost(
       input: {
@@ -55,6 +56,11 @@ export const CREATE_POST = gql`
     ) {
       post {
         id
+      }
+    }
+    createCollection(input: { data: { name: $name } }) {
+      collection {
+        name
       }
     }
   }
